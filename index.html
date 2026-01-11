@@ -8,11 +8,20 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    // Wait for all scripts to load before processing Babel
+    window.addEventListener('load', function() {
+      if (typeof Babel !== 'undefined' && typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+        // All scripts loaded, Babel will process type="text/babel" scripts automatically
+        console.log('All dependencies loaded');
+      }
+    });
+  </script>
 </head>
 <body>
   <div id="root"></div>
 
-  <script type="text/babel">
+  <script type="text/babel" data-presets="react">
     const { useState } = React;
 
     const LLEPopup = () => {
@@ -354,8 +363,21 @@
       );
     };
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<LLEPopup />);
+    // Render after a short delay to ensure Babel has processed everything
+    setTimeout(function() {
+      try {
+        if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+          const root = ReactDOM.createRoot(document.getElementById('root'));
+          root.render(<LLEPopup />);
+        } else {
+          console.error('React or ReactDOM not loaded');
+          document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded properly.</p>';
+        }
+      } catch (error) {
+        console.error('Error rendering React component:', error);
+        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error loading component: ' + error.message + '</p>';
+      }
+    }, 100);
   </script>
 </body>
 </html>
