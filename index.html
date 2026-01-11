@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leasinglaufzeitende - LLE Popup</title>
   <link rel="stylesheet" href="https://raw.githubusercontent.com/alexander-karl/bls-lle-popup-revamp/main/lle-popup.css">
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script>
-    // Wait for all scripts to load before processing Babel
+    // Debug: Check if scripts loaded
     window.addEventListener('load', function() {
-      if (typeof Babel !== 'undefined' && typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
-        // All scripts loaded, Babel will process type="text/babel" scripts automatically
-        console.log('All dependencies loaded');
-      }
+      console.log('Page loaded');
+      console.log('React:', typeof React !== 'undefined');
+      console.log('ReactDOM:', typeof ReactDOM !== 'undefined');
+      console.log('Babel:', typeof Babel !== 'undefined');
     });
   </script>
 </head>
@@ -363,23 +363,38 @@
       );
     };
 
-    // Render immediately - Babel will have processed this by the time it executes
-    if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(<LLEPopup />);
-    } else {
-      console.error('React or ReactDOM not loaded');
-      document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded properly.</p>';
-    }
-  </script>
-  <script>
-    // Fallback error handler
-    window.addEventListener('error', function(e) {
-      console.error('Global error:', e);
-      if (document.getElementById('root').innerHTML === '') {
-        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error loading page. Check console for details.</p>';
+    // Wait for Babel to transform this script
+    (function() {
+      function renderApp() {
+        try {
+          if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+            console.error('React libraries not loaded');
+            document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded. Check console.</p>';
+            return;
+          }
+          
+          console.log('Rendering component...');
+          if (typeof LLEPopup === 'undefined') {
+            console.error('LLEPopup component not defined - Babel may not have processed JSX');
+            document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: Component not loaded. Babel may not be processing JSX correctly.</p>';
+            return;
+          }
+          const root = ReactDOM.createRoot(document.getElementById('root'));
+          root.render(React.createElement(LLEPopup));
+        } catch (error) {
+          console.error('Rendering error:', error);
+          document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: ' + error.message + '</p>';
+        }
       }
-    });
+      
+      // Try to render after page load
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', renderApp);
+      } else {
+        // Page already loaded, render immediately
+        setTimeout(renderApp, 100);
+      }
+    })();
   </script>
 </body>
 </html>
