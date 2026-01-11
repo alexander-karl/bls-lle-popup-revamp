@@ -363,21 +363,23 @@
       );
     };
 
-    // Render after a short delay to ensure Babel has processed everything
-    setTimeout(function() {
-      try {
-        if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
-          const root = ReactDOM.createRoot(document.getElementById('root'));
-          root.render(<LLEPopup />);
-        } else {
-          console.error('React or ReactDOM not loaded');
-          document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded properly.</p>';
-        }
-      } catch (error) {
-        console.error('Error rendering React component:', error);
-        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error loading component: ' + error.message + '</p>';
+    // Render immediately - Babel will have processed this by the time it executes
+    if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<LLEPopup />);
+    } else {
+      console.error('React or ReactDOM not loaded');
+      document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded properly.</p>';
+    }
+  </script>
+  <script>
+    // Fallback error handler
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e);
+      if (document.getElementById('root').innerHTML === '') {
+        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error loading page. Check console for details.</p>';
       }
-    }, 100);
+    });
   </script>
 </body>
 </html>
