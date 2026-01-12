@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="lle-popup.css">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script>
+    // #region agent log
+    window.addEventListener('error', function(e) {
+      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:error-handler',message:'Global error caught',data:{error:e.message,filename:e.filename,lineno:e.lineno},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+    });
+    // #endregion
+  </script>
 </head>
 <body>
   <div id="root"></div>
@@ -14,6 +21,10 @@
   <script>
     (function() {
       'use strict';
+      
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-start',message:'Script execution started',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+      // #endregion
       
       const { useState, createElement: h, Fragment } = React;
       
@@ -398,19 +409,49 @@
 
       // Initialize when React is loaded
       function init() {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-entry',message:'Init function called',data:{hasReact:typeof React!=='undefined',hasReactDOM:typeof ReactDOM!=='undefined',rootExists:!!document.getElementById('root')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        
         if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-retry',message:'React not loaded, retrying',data:{hasReact:typeof React!=='undefined',hasReactDOM:typeof ReactDOM!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+          // #endregion
           setTimeout(init, 100);
           return;
         }
         
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-before-render',message:'About to render',data:{rootExists:!!document.getElementById('root'),ReactVersion:React.version,ReactDOMVersion:ReactDOM.version},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
+        
         try {
-          const root = ReactDOM.createRoot(document.getElementById('root'));
+          const rootElement = document.getElementById('root');
+          if (!rootElement) {
+            // #region agent log
+            fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-no-root',message:'Root element not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+            // #endregion
+            return;
+          }
+          
+          const root = ReactDOM.createRoot(rootElement);
           root.render(e(LLEPopup));
+          
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-render-success',message:'Render call completed',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+          // #endregion
         } catch (error) {
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:init-error',message:'Render error caught',data:{error:error.message,stack:error.stack},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+          // #endregion
           console.error('Error rendering:', error);
           document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: ' + error.message + '</p>';
         }
       }
+      
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-end',message:'Setting up init call',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+      // #endregion
       
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
