@@ -61,10 +61,12 @@
       
       // Helper function to make React.createElement calls shorter
       const e = (tag, props, ...children) => {
+        // Flatten children array if needed (for arrays from map)
+        const flatChildren = children.length === 1 && Array.isArray(children[0]) ? children[0] : children;
         if (typeof tag === 'string') {
-          return h(tag, props, ...children);
+          return h(tag, props, ...flatChildren);
         }
-        return h(tag, props, ...children);
+        return h(tag, props, ...flatChildren);
       };
 
       const LLEPopup = () => {
