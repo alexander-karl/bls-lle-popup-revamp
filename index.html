@@ -7,394 +7,415 @@
   <link rel="stylesheet" href="https://raw.githubusercontent.com/alexander-karl/bls-lle-popup-revamp/main/lle-popup.css">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script>
-    // Wait for Babel to load, then process scripts
-    function initApp() {
-      if (typeof Babel === 'undefined') {
-        console.error('Babel not loaded');
-        setTimeout(initApp, 100);
-        return;
-      }
-      
-      // Manually transform and execute the Babel script
-      const babelScript = document.querySelector('script[type="text/babel"]');
-      if (babelScript) {
-        try {
-          const transformed = Babel.transform(babelScript.innerHTML, {
-            presets: ['react']
-          }).code;
-          eval(transformed);
-        } catch (error) {
-          console.error('Babel transform error:', error);
-          document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error transforming JSX: ' + error.message + '</p>';
-        }
-      }
-    }
-    
-    window.addEventListener('load', initApp);
-  </script>
 </head>
 <body>
   <div id="root"></div>
 
-  <script type="text/babel" id="main-script" style="display: none;">
-    const { useState } = React;
-
-    const LLEPopup = () => {
-      const [selectedOption, setSelectedOption] = useState(null);
-      const [showConfirmation, setShowConfirmation] = useState(false);
-
-      const colors = {
-        weiterleasing: {
-          primary: '#2563eb',
-          dark: '#1d4ed8',
-          light: '#eff6ff',
-          gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-        },
-        anschlussleasing: {
-          primary: '#10b981',
-          dark: '#059669',
-          light: '#ecfdf5',
-          gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-        },
-        übernahmekauf: {
-          primary: '#f59e0b',
-          dark: '#d97706',
-          light: '#fffbeb',
-          gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-        },
-        rückgabe: {
-          primary: '#d4a5a5',
-          dark: '#b08080',
-          light: '#faf5f5',
-          gradient: 'linear-gradient(135deg, #d4a5a5 0%, #c99494 100%)',
-        },
+  <script>
+    (function() {
+      'use strict';
+      
+      const { useState, createElement: h, Fragment } = React;
+      
+      // Helper function to make React.createElement calls shorter
+      const e = (tag, props, ...children) => {
+        if (typeof tag === 'string') {
+          return h(tag, props, ...children);
+        }
+        return h(tag, props, ...children);
       };
 
-      const options = [
-        {
-          id: 'weiterleasing',
-          title: 'Weiterleasing',
-          badge: 'Empfohlen',
-          highlighted: true,
-          color: colors.weiterleasing,
-          priceLabel: 'Monatliche Rate',
-          price: '89,90 €',
-          priceSuffix: '/ Monat',
-          mainBenefit: 'Behalten Sie Ihr Fahrrad – nach 10 Monaten gehört es Ihnen ohne Ablöse',
-          nettoRate: '~48 €',
-          details: {
-            laufzeit: '10 Monate',
-            versicherung: 'Vollkasko inklusive',
-            ablöse: '0 € – Fahrrad gehört nach 10 M. Ihnen',
-            service: 'Reparatur & Wartung inklusive',
+      const LLEPopup = () => {
+        const [selectedOption, setSelectedOption] = useState(null);
+        const [showConfirmation, setShowConfirmation] = useState(false);
+
+        const colors = {
+          weiterleasing: {
+            primary: '#2563eb',
+            dark: '#1d4ed8',
+            light: '#eff6ff',
+            gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
           },
-        },
-        {
-          id: 'anschlussleasing',
-          title: 'Anschlussleasing',
-          badge: 'Günstigste',
-          highlighted: false,
-          color: colors.anschlussleasing,
-          priceLabel: 'Monatliche Rate',
-          price: '49,90 €',
-          priceSuffix: '/ Monat',
-          mainBenefit: 'Günstigere Rate – danach flexible Übernahme oder Rückgabe',
-          nettoRate: '~27 €',
-          details: {
-            laufzeit: '24 Monate',
-            versicherung: 'Vollkasko inklusive',
-            ablöse: '299 € (optional)',
-            service: 'Reparatur & Wartung inklusive',
+          anschlussleasing: {
+            primary: '#10b981',
+            dark: '#059669',
+            light: '#ecfdf5',
+            gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
           },
-        },
-        {
-          id: 'übernahmekauf',
-          title: 'Übernahmekauf',
-          badge: null,
-          highlighted: false,
-          color: colors.übernahmekauf,
-          priceLabel: 'Einmalzahlung',
-          price: '890 €',
-          priceSuffix: 'einmalig',
-          mainBenefit: 'Das Fahrrad gehört Ihnen – sofort und ohne weitere Verpflichtungen',
-          nettoRate: null,
-          paymentInfo: 'Zahlung auf Rechnung in 14 Tagen',
-          details: {
-            laufzeit: 'Unbegrenzt (Eigentum)',
-            versicherung: 'Endet mit Übernahme',
-            ablöse: '890 € Restwert',
-            service: 'Nicht inklusive',
+          übernahmekauf: {
+            primary: '#f59e0b',
+            dark: '#d97706',
+            light: '#fffbeb',
+            gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
           },
-        },
-      ];
+          rückgabe: {
+            primary: '#d4a5a5',
+            dark: '#b08080',
+            light: '#faf5f5',
+            gradient: 'linear-gradient(135deg, #d4a5a5 0%, #c99494 100%)',
+          },
+        };
 
-      const handleContinue = () => {
-        setShowConfirmation(true);
-      };
+        const options = [
+          {
+            id: 'weiterleasing',
+            title: 'Weiterleasing',
+            badge: 'Empfohlen',
+            highlighted: true,
+            color: colors.weiterleasing,
+            priceLabel: 'Monatliche Rate',
+            price: '89,90 €',
+            priceSuffix: '/ Monat',
+            mainBenefit: 'Behalten Sie Ihr Fahrrad – nach 10 Monaten gehört es Ihnen ohne Ablöse',
+            nettoRate: '~48 €',
+            details: {
+              laufzeit: '10 Monate',
+              versicherung: 'Vollkasko inklusive',
+              ablöse: '0 € – Fahrrad gehört nach 10 M. Ihnen',
+              service: 'Reparatur & Wartung inklusive',
+            },
+          },
+          {
+            id: 'anschlussleasing',
+            title: 'Anschlussleasing',
+            badge: 'Günstigste',
+            highlighted: false,
+            color: colors.anschlussleasing,
+            priceLabel: 'Monatliche Rate',
+            price: '49,90 €',
+            priceSuffix: '/ Monat',
+            mainBenefit: 'Günstigere Rate – danach flexible Übernahme oder Rückgabe',
+            nettoRate: '~27 €',
+            details: {
+              laufzeit: '24 Monate',
+              versicherung: 'Vollkasko inklusive',
+              ablöse: '299 € (optional)',
+              service: 'Reparatur & Wartung inklusive',
+            },
+          },
+          {
+            id: 'übernahmekauf',
+            title: 'Übernahmekauf',
+            badge: null,
+            highlighted: false,
+            color: colors.übernahmekauf,
+            priceLabel: 'Einmalzahlung',
+            price: '890 €',
+            priceSuffix: 'einmalig',
+            mainBenefit: 'Das Fahrrad gehört Ihnen – sofort und ohne weitere Verpflichtungen',
+            nettoRate: null,
+            paymentInfo: 'Zahlung auf Rechnung in 14 Tagen',
+            details: {
+              laufzeit: 'Unbegrenzt (Eigentum)',
+              versicherung: 'Endet mit Übernahme',
+              ablöse: '890 € Restwert',
+              service: 'Nicht inklusive',
+            },
+          },
+        ];
 
-      const handleBack = () => {
-        setShowConfirmation(false);
-        setSelectedOption(null);
-      };
+        const handleContinue = () => {
+          setShowConfirmation(true);
+        };
 
-      const getSelectedColor = () => {
-        if (selectedOption === 'rückgabe') return colors.rückgabe;
-        const option = options.find(o => o.id === selectedOption);
-        return option?.color || colors.weiterleasing;
-      };
+        const handleBack = () => {
+          setShowConfirmation(false);
+          setSelectedOption(null);
+        };
 
-      if (showConfirmation) {
-        const selected = selectedOption === 'rückgabe' 
-          ? { title: 'Rückgabe' }
-          : options.find(o => o.id === selectedOption);
-        const confirmColor = getSelectedColor();
-        
-        return (
-          <div className="overlay">
-            <div className="confirmation-modal">
-              <div className="confirmation-icon" style={{
-                background: confirmColor.gradient,
-                boxShadow: `0 8px 24px ${confirmColor.primary}4d`,
-              }}>✓</div>
-              <h2 className="confirmation-title">Auswahl bestätigt</h2>
-              <p className="confirmation-text">
-                Sie haben <strong>{selected?.title}</strong> gewählt.
-              </p>
-              <p className="confirmation-subtext">
-                In einem echten System würden Sie jetzt zum nächsten Schritt weitergeleitet.
-              </p>
-              <button className="back-button" onClick={handleBack}>
-                ← Zurück zur Auswahl
-              </button>
-            </div>
-          </div>
-        );
-      }
+        const getSelectedColor = () => {
+          if (selectedOption === 'rückgabe') return colors.rückgabe;
+          const option = options.find(o => o.id === selectedOption);
+          return option?.color || colors.weiterleasing;
+        };
 
-      return (
-        <div className="overlay">
-          <div className="modal">
-            <div className="header">
-              <div className="header-icon">
-                <img src="https://raw.githubusercontent.com/alexander-karl/bls-lle-popup-revamp/main/bls-symbol.jpeg" alt="BLS Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div className="header-top-row">
-                  <h1 className="title">Leasinglaufzeitende</h1>
-                  <span className="user-id">U15419 – TESTNUTZER BIKELEASING</span>
-                </div>
-                <p className="subtitle">
-                  Wollen Sie das Rad zum Ende der Leasinglaufzeit übernehmen?
-                </p>
-              </div>
-            </div>
+        if (showConfirmation) {
+          const selected = selectedOption === 'rückgabe' 
+            ? { title: 'Rückgabe' }
+            : options.find(o => o.id === selectedOption);
+          const confirmColor = getSelectedColor();
+          
+          return e('div', { className: 'overlay' },
+            e('div', { className: 'confirmation-modal' },
+              e('div', {
+                className: 'confirmation-icon',
+                style: {
+                  background: confirmColor.gradient,
+                  boxShadow: `0 8px 24px ${confirmColor.primary}4d`,
+                }
+              }, '✓'),
+              e('h2', { className: 'confirmation-title' }, 'Auswahl bestätigt'),
+              e('p', { className: 'confirmation-text' },
+                'Sie haben ',
+                e('strong', null, selected?.title),
+                ' gewählt.'
+              ),
+              e('p', { className: 'confirmation-subtext' },
+                'In einem echten System würden Sie jetzt zum nächsten Schritt weitergeleitet.'
+              ),
+              e('button', { className: 'back-button', onClick: handleBack },
+                '← Zurück zur Auswahl'
+              )
+            )
+          );
+        }
 
-            <div className="bike-banner">
-              <span className="bike-label">Aktuelles Fahrrad:</span>
-              <span className="bike-name">Canyon Roadlite:ON 7</span>
-              <span className="bike-end">Leasingende: 31.03.2025</span>
-            </div>
-
-            <div className="options-grid">
-              {options.map((option) => {
-                const isSelected = selectedOption === option.id;
-                const cardColor = option.color;
-                
-                return (
-                  <div
-                    key={option.id}
-                    onClick={() => setSelectedOption(option.id)}
-                    className="option-card"
-                    style={{
-                      borderColor: cardColor.primary,
-                      background: isSelected || option.highlighted 
-                        ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
-                        : '#ffffff',
-                      boxShadow: isSelected 
-                        ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
-                        : option.highlighted 
-                          ? `0 4px 20px ${cardColor.primary}26`
-                          : 'none',
-                    }}
-                  >
-                    {option.badge && (
-                      <div className="badge" style={{
-                        background: cardColor.gradient,
-                        boxShadow: `0 2px 8px ${cardColor.primary}4d`,
-                      }}>{option.badge}</div>
-                    )}
-
-                    <div className="radio-outer" style={{
-                      borderColor: isSelected ? cardColor.primary : '#d1d5db',
-                      background: isSelected ? cardColor.primary : 'transparent',
-                    }}>
-                      {isSelected && (
-                        <div className="radio-inner" />
-                      )}
-                    </div>
-
-                    <h3 className="option-title" style={{
+        const renderOptionCard = (option) => {
+          const isSelected = selectedOption === option.id;
+          const cardColor = option.color;
+          
+          return e('div', {
+            key: option.id,
+            onClick: () => setSelectedOption(option.id),
+            className: 'option-card',
+            style: {
+              borderColor: cardColor.primary,
+              background: isSelected || option.highlighted 
+                ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
+                : '#ffffff',
+              boxShadow: isSelected 
+                ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
+                : option.highlighted 
+                  ? `0 4px 20px ${cardColor.primary}26`
+                  : 'none',
+            }
+          },
+            option.badge && e('div', {
+              className: 'badge',
+              style: {
+                background: cardColor.gradient,
+                boxShadow: `0 2px 8px ${cardColor.primary}4d`,
+              }
+            }, option.badge),
+            e('div', {
+              className: 'radio-outer',
+              style: {
+                borderColor: isSelected ? cardColor.primary : '#d1d5db',
+                background: isSelected ? cardColor.primary : 'transparent',
+              }
+            },
+              isSelected && e('div', { className: 'radio-inner' })
+            ),
+            e('h3', {
+              className: 'option-title',
+              style: { color: cardColor.dark }
+            }, option.title),
+            e('div', { className: 'price-section' },
+              e('span', { className: 'price-label' }, option.priceLabel),
+              e('div', { className: 'price-row' },
+                e('span', {
+                  className: 'price',
+                  style: { color: cardColor.dark }
+                }, option.price),
+                e('span', { className: 'price-suffix' }, option.priceSuffix)
+              )
+            ),
+            e('p', { className: 'main-benefit' }, option.mainBenefit),
+            e('div', { style: { marginTop: 'auto' } },
+              e('div', {
+                className: 'divider',
+                style: { background: `${cardColor.primary}26` }
+              }),
+              e('div', {
+                style: {
+                  minHeight: '44px',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }
+              },
+                (option.nettoRate || option.paymentInfo) && e('div', {
+                  className: 'detail-row',
+                  style: {
+                    background: `${cardColor.primary}0d`,
+                    margin: '0 -12px 0',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    width: 'calc(100% + 24px)',
+                  }
+                },
+                  option.nettoRate ? [
+                    e('span', {
+                      className: 'detail-label',
+                      style: {
+                        color: cardColor.dark,
+                        fontWeight: '600',
+                      }
+                    }, 'Mtl. Netto-Belastung'),
+                    e('span', {
+                      className: 'detail-value',
+                      style: {
+                        color: cardColor.dark,
+                        fontWeight: '700',
+                        fontSize: '15px',
+                      }
+                    }, option.nettoRate)
+                  ] : e('span', {
+                    className: 'detail-label',
+                    style: {
                       color: cardColor.dark,
-                    }}>
-                      {option.title}
-                    </h3>
+                      fontWeight: '600',
+                      width: '100%',
+                      textAlign: 'center',
+                    }
+                  }, option.paymentInfo)
+                )
+              ),
+              e('div', { className: 'details' },
+                e('div', { className: 'detail-row' },
+                  e('span', { className: 'detail-label' }, 'Laufzeit'),
+                  e('span', { className: 'detail-value' }, option.details.laufzeit)
+                ),
+                e('div', { className: 'detail-row' },
+                  e('span', { className: 'detail-label' }, 'Versicherung'),
+                  e('span', { className: 'detail-value' }, option.details.versicherung)
+                ),
+                e('div', { className: 'detail-row' },
+                  e('span', { className: 'detail-label' }, 'Ablöse'),
+                  e('span', {
+                    className: 'detail-value',
+                    style: {
+                      color: option.id === 'weiterleasing' ? colors.weiterleasing.primary : '#111827',
+                      fontWeight: option.id === 'weiterleasing' ? '700' : '600',
+                    }
+                  }, option.details.ablöse)
+                ),
+                e('div', { className: 'detail-row' },
+                  e('span', { className: 'detail-label' }, 'Service'),
+                  e('span', { className: 'detail-value' }, option.details.service)
+                )
+              )
+            )
+          );
+        };
 
-                    <div className="price-section">
-                      <span className="price-label">{option.priceLabel}</span>
-                      <div className="price-row">
-                        <span className="price" style={{
-                          color: cardColor.dark,
-                        }}>
-                          {option.price}
-                        </span>
-                        <span className="price-suffix">{option.priceSuffix}</span>
-                      </div>
-                    </div>
-
-                    <p className="main-benefit">{option.mainBenefit}</p>
-
-                    <div style={{ marginTop: 'auto' }}>
-                      <div className="divider" style={{
-                        background: `${cardColor.primary}26`,
-                      }} />
-
-                      <div style={{ minHeight: '44px', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                        {(option.nettoRate || option.paymentInfo) ? (
-                          <div className="detail-row" style={{
-                            background: `${cardColor.primary}0d`,
-                            margin: '0 -12px 0',
-                            padding: '8px 12px',
-                            borderRadius: '8px',
-                            width: 'calc(100% + 24px)',
-                          }}>
-                            {option.nettoRate ? (
-                              <>
-                                <span className="detail-label" style={{
-                                  color: cardColor.dark,
-                                  fontWeight: '600',
-                                }}>Mtl. Netto-Belastung</span>
-                                <span className="detail-value" style={{
-                                  color: cardColor.dark,
-                                  fontWeight: '700',
-                                  fontSize: '15px',
-                                }}>{option.nettoRate}</span>
-                              </>
-                            ) : (
-                              <span className="detail-label" style={{
-                                color: cardColor.dark,
-                                fontWeight: '600',
-                                width: '100%',
-                                textAlign: 'center',
-                              }}>{option.paymentInfo}</span>
-                            )}
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <div className="details">
-                        <div className="detail-row">
-                          <span className="detail-label">Laufzeit</span>
-                          <span className="detail-value">{option.details.laufzeit}</span>
-                        </div>
-                        <div className="detail-row">
-                          <span className="detail-label">Versicherung</span>
-                          <span className="detail-value">{option.details.versicherung}</span>
-                        </div>
-                        <div className="detail-row">
-                          <span className="detail-label">Ablöse</span>
-                          <span className="detail-value" style={{
-                            color: option.id === 'weiterleasing' ? colors.weiterleasing.primary : '#111827',
-                            fontWeight: option.id === 'weiterleasing' ? '700' : '600',
-                          }}>{option.details.ablöse}</span>
-                        </div>
-                        <div className="detail-row">
-                          <span className="detail-label">Service</span>
-                          <span className="detail-value">{option.details.service}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div 
-              className="return-option"
-              style={{
+        return e('div', { className: 'overlay' },
+          e('div', { className: 'modal' },
+            e('div', { className: 'header' },
+              e('div', { className: 'header-icon' },
+                e('img', {
+                  src: 'https://raw.githubusercontent.com/alexander-karl/bls-lle-popup-revamp/main/bls-symbol.jpeg',
+                  alt: 'BLS Logo',
+                  style: {
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
+                  }
+                })
+              ),
+              e('div', { style: { flex: 1 } },
+                e('div', { className: 'header-top-row' },
+                  e('h1', { className: 'title' }, 'Leasinglaufzeitende'),
+                  e('span', { className: 'user-id' }, 'U15419 – TESTNUTZER BIKELEASING')
+                ),
+                e('p', { className: 'subtitle' },
+                  'Wollen Sie das Rad zum Ende der Leasinglaufzeit übernehmen?'
+                )
+              )
+            ),
+            e('div', { className: 'bike-banner' },
+              e('span', { className: 'bike-label' }, 'Aktuelles Fahrrad:'),
+              e('span', { className: 'bike-name' }, 'Canyon Roadlite:ON 7'),
+              e('span', { className: 'bike-end' }, 'Leasingende: 31.03.2025')
+            ),
+            e('div', { className: 'options-grid' },
+              ...options.map(renderOptionCard)
+            ),
+            e('div', {
+              className: 'return-option',
+              style: {
                 borderColor: colors.rückgabe.primary,
                 background: selectedOption === 'rückgabe' ? colors.rückgabe.light : '#f9fafb',
-              }}
-              onClick={() => setSelectedOption('rückgabe')}
-            >
-              <div className="radio-outer radio-outer-small" style={{
-                borderColor: selectedOption === 'rückgabe' ? colors.rückgabe.primary : '#d1d5db',
-                background: selectedOption === 'rückgabe' ? colors.rückgabe.primary : 'transparent',
-              }}>
-                {selectedOption === 'rückgabe' && (
-                  <div className="radio-inner" />
-                )}
-              </div>
-              <div className="return-content">
-                <span className="return-title" style={{
-                  color: selectedOption === 'rückgabe' ? colors.rückgabe.dark : '#374151',
-                }}>Fahrrad zurückgeben</span>
-                <span className="return-subtitle">
-                  Sie möchten das Fahrrad nicht behalten? Geben Sie es einfach zurück.
-                </span>
-              </div>
-              <svg className="return-arrow" style={{
-                color: selectedOption === 'rückgabe' ? colors.rückgabe.primary : '#9ca3af',
-              }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </div>
+              },
+              onClick: () => setSelectedOption('rückgabe')
+            },
+              e('div', {
+                className: 'radio-outer radio-outer-small',
+                style: {
+                  borderColor: selectedOption === 'rückgabe' ? colors.rückgabe.primary : '#d1d5db',
+                  background: selectedOption === 'rückgabe' ? colors.rückgabe.primary : 'transparent',
+                }
+              },
+                selectedOption === 'rückgabe' && e('div', { className: 'radio-inner' })
+              ),
+              e('div', { className: 'return-content' },
+                e('span', {
+                  className: 'return-title',
+                  style: {
+                    color: selectedOption === 'rückgabe' ? colors.rückgabe.dark : '#374151',
+                  }
+                }, 'Fahrrad zurückgeben'),
+                e('span', { className: 'return-subtitle' },
+                  'Sie möchten das Fahrrad nicht behalten? Geben Sie es einfach zurück.'
+                )
+              ),
+              e('svg', {
+                className: 'return-arrow',
+                style: {
+                  color: selectedOption === 'rückgabe' ? colors.rückgabe.primary : '#9ca3af',
+                },
+                width: '20',
+                height: '20',
+                viewBox: '0 0 24 24',
+                fill: 'none',
+                stroke: 'currentColor',
+                strokeWidth: '2'
+              },
+                e('path', { d: 'M9 18l6-6-6-6' })
+              )
+            ),
+            e('div', { className: 'footer' },
+              e('p', { className: 'footer-note' },
+                'Sie können Ihre Auswahl später noch ändern. Bei Fragen hilft Ihnen unser Support.'
+              ),
+              e('button', {
+                className: 'continue-button',
+                style: selectedOption ? {
+                  background: getSelectedColor().gradient,
+                  cursor: 'pointer',
+                  boxShadow: `0 4px 14px ${getSelectedColor().primary}66`,
+                } : {},
+                disabled: !selectedOption,
+                onClick: handleContinue
+              },
+                selectedOption ? 'Weiter zur Bestätigung' : 'Bitte Option auswählen',
+                selectedOption && e('svg', {
+                  width: '20',
+                  height: '20',
+                  viewBox: '0 0 24 24',
+                  fill: 'none',
+                  stroke: 'currentColor',
+                  strokeWidth: '2',
+                  style: { marginLeft: '8px' }
+                },
+                  e('path', { d: 'M5 12h14M12 5l7 7-7 7' })
+                )
+              )
+            )
+          )
+        );
+      };
 
-            <div className="footer">
-              <p className="footer-note">
-                Sie können Ihre Auswahl später noch ändern. Bei Fragen hilft Ihnen unser Support.
-              </p>
-              <button
-                className="continue-button"
-                style={{
-                  ...(selectedOption ? {
-                    background: getSelectedColor().gradient,
-                    cursor: 'pointer',
-                    boxShadow: `0 4px 14px ${getSelectedColor().primary}66`,
-                  } : {}),
-                }}
-                disabled={!selectedOption}
-                onClick={handleContinue}
-              >
-                {selectedOption ? 'Weiter zur Bestätigung' : 'Bitte Option auswählen'}
-                {selectedOption && (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    // Wait for Babel to transform this script
-    // This will be transformed by Babel and executed
-    (function() {
-      if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
-        console.error('React libraries not loaded');
-        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: React libraries not loaded.</p>';
-        return;
+      // Initialize when React is loaded
+      function init() {
+        if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+          setTimeout(init, 100);
+          return;
+        }
+        
+        try {
+          const root = ReactDOM.createRoot(document.getElementById('root'));
+          root.render(e(LLEPopup));
+        } catch (error) {
+          console.error('Error rendering:', error);
+          document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: ' + error.message + '</p>';
+        }
       }
       
-      try {
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(React.createElement(LLEPopup));
-      } catch (error) {
-        console.error('Rendering error:', error);
-        document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error: ' + error.message + '</p>';
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
       }
     })();
   </script>
