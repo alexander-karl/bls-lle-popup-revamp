@@ -57,8 +57,7 @@
           return;
         }
         
-        try {
-          const { useState, createElement: h, Fragment } = React;
+        const { useState, createElement: h, Fragment } = React;
       
       // Helper function to make React.createElement calls shorter
       const e = (tag, props, ...children) => {
@@ -499,16 +498,6 @@
           document.addEventListener('DOMContentLoaded', function() {
             setTimeout(init, 200);
           });
-        }
-        }
-        } catch (error) {
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:executeApp-error',message:'Error in executeApp',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(()=>{});
-          // #endregion
-          console.error('Error in executeApp:', error);
-          if (document.getElementById('root')) {
-            document.getElementById('root').innerHTML = '<p style="padding: 20px; color: red;">Error loading app: ' + error.message + '</p>';
-          }
         }
       } // End executeApp function
     })();
