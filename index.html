@@ -362,8 +362,8 @@
               e('span', { className: 'bike-name' }, 'Canyon Roadlite:ON 7'),
               e('span', { className: 'bike-end' }, 'Leasingende: 31.03.2025')
             ),
-            e('div', { className: 'options-grid' },
-              options.map(renderOptionCard)
+            h('div', { className: 'options-grid' },
+              options.map(function(option) { return renderOptionCard(option); })
             ),
             e('div', {
               className: 'return-option',
