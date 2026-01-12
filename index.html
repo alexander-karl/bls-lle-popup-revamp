@@ -19,13 +19,35 @@
   <div id="root"></div>
 
   <script>
+    // Wrap everything to prevent immediate execution - only run when React is ready
     (function() {
       'use strict';
       
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-start',message:'Script execution started',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-start',message:'Script execution started',data:{readyState:document.readyState,hasReact:typeof React!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
       // #endregion
       
+      // Don't access React until we confirm it's loaded
+      if (typeof React === 'undefined') {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:react-check-fail',message:'React not available at script start, deferring',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        
+        // Wait for React to load, then execute
+        function waitForReact() {
+          if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+            executeApp();
+          } else {
+            setTimeout(waitForReact, 50);
+          }
+        }
+        waitForReact();
+        return; // Exit early, will continue in executeApp()
+      }
+      
+      executeApp();
+      
+      function executeApp() {
       const { useState, createElement: h, Fragment } = React;
       
       // Helper function to make React.createElement calls shorter
@@ -451,7 +473,7 @@
       }
       
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-end',message:'Setting up init call',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-end',message:'Setting up init call',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
       // #endregion
       
       // Wait for window load to ensure all scripts are loaded (especially for htmlpreview)
@@ -469,6 +491,7 @@
           });
         }
       }
+      } // End executeApp function
     })();
   </script>
 </body>
