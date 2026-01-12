@@ -19,35 +19,13 @@
   <div id="root"></div>
 
   <script>
-    // Wrap everything to prevent immediate execution - only run when React is ready
-    (function() {
-      'use strict';
-      
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-start',message:'Script execution started',data:{readyState:document.readyState,hasReact:typeof React!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
-      
-      // Don't access React until we confirm it's loaded
-      if (typeof React === 'undefined') {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:react-check-fail',message:'React not available at script start, deferring',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
-        
-        // Wait for React to load, then execute
-        function waitForReact() {
-          if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
-            executeApp();
-          } else {
-            setTimeout(waitForReact, 50);
-          }
-        }
-        waitForReact();
-        return; // Exit early, will continue in executeApp()
-      }
-      
-      executeApp();
-      
-      function executeApp() {
+    'use strict';
+    
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f7dabc1b-d286-430a-a2f0-2bad5c857064',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:script-start',message:'Script execution started',data:{readyState:document.readyState,hasReact:typeof React!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run4',hypothesisId:'A'})}).catch(function(){});
+    // #endregion
+    
+    function executeApp() {
         // Ensure React is available before destructuring
         if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
           // #region agent log
@@ -501,8 +479,19 @@
             setTimeout(init, 200);
           });
         }
-      } // End executeApp function
-    })();
+    } // End executeApp function
+    
+    // Wait for React to load before executing
+    function waitForReactAndExecute() {
+      if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined' && window.__reactLoaded && window.__reactDOMLoaded) {
+        executeApp();
+      } else {
+        setTimeout(waitForReactAndExecute, 50);
+      }
+    }
+    
+    // Start waiting for React
+    waitForReactAndExecute();
   </script>
 </body>
 </html>
