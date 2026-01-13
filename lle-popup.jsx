@@ -331,7 +331,7 @@ const LLEPopup = () => {
           position: relative;
           border: 2px solid #e5e7eb;
           border-radius: 16px;
-          padding: 28px 20px 24px;
+          padding: 28px 20px 16px;
           cursor: pointer;
           transition: all 0.2s ease;
           display: flex;
