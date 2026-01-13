@@ -498,6 +498,11 @@ const LLEPopup = () => {
         .status-icon svg {
           width: 100%;
           height: 100%;
+          display: block;
+        }
+        
+        .status-icon svg circle {
+          display: block;
         }
         
         .return-option {
@@ -771,7 +776,7 @@ const LLEPopup = () => {
                         {option.details.versicherung}
                         {option.details.versicherung === 'Vollkasko inklusive' && (
                           <span className="status-icon check">
-                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                               <circle cx="9" cy="9" r="9" fill="#10b981"/>
                               <path d="M5 9L8 12L13 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -779,7 +784,7 @@ const LLEPopup = () => {
                         )}
                             {option.details.versicherung === 'Endet mit Übernahme' && (
                           <span className="status-icon cross">
-                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                               <circle cx="9" cy="9" r="9" fill="#dc2626"/>
                               <path d="M6 6L12 12M12 6L6 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                             </svg>
@@ -792,10 +797,20 @@ const LLEPopup = () => {
                       <span className="detail-value">
                         {option.details.service}
                         {option.details.service === 'Reparatur & Wartung inklusive' && (
-                          <span className="status-icon check">✓</span>
+                          <span className="status-icon check">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                              <circle cx="9" cy="9" r="9" fill="#10b981"/>
+                              <path d="M5 9L8 12L13 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
                         )}
                             {option.details.service === 'Nicht inklusive' && (
-                          <span className="status-icon cross"><span className="icon-content">×</span></span>
+                          <span className="status-icon cross">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                              <circle cx="9" cy="9" r="9" fill="#dc2626"/>
+                              <path d="M6 6L12 12M12 6L6 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                            </svg>
+                          </span>
                         )}
                       </span>
                     </div>
