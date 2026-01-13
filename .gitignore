@@ -27,3 +27,7 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# Local preview files (not for deployment)
+index.html
+index-*.html

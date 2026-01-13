@@ -6,42 +6,42 @@ const LLEPopup = () => {
 
   const colors = {
     weiterleasing: {
-      primary: '#2563eb',
-      dark: '#1d4ed8',
-      light: '#eff6ff',
-      gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+      primary: '#95C11E',
+      dark: '#7a9a18',
+      light: '#f5f9e8',
+      gradient: 'linear-gradient(135deg, #95C11E 0%, #7a9a18 100%)',
     },
     anschlussleasing: {
-      primary: '#10b981',
-      dark: '#059669',
-      light: '#ecfdf5',
-      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      primary: '#4a4a4a',
+      dark: '#3a3a3a',
+      light: '#f5f5f5',
+      gradient: 'linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%)',
     },
     übernahmekauf: {
-      primary: '#f59e0b',
-      dark: '#d97706',
-      light: '#fffbeb',
-      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      primary: '#4a4a4a',
+      dark: '#3a3a3a',
+      light: '#f5f5f5',
+      gradient: 'linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%)',
     },
     rückgabe: {
-      primary: '#d4a5a5',
-      dark: '#b08080',
-      light: '#faf5f5',
-      gradient: 'linear-gradient(135deg, #d4a5a5 0%, #c99494 100%)',
+      primary: '#4a4a4a',
+      dark: '#3a3a3a',
+      light: '#f5f5f5',
+      gradient: 'linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%)',
     },
   };
 
   const options = [
     {
       id: 'weiterleasing',
-      title: 'Aktuelle Rate weiterzahlen – nach 10 Monaten gehört es Ihnen',
+      title: 'Rad für 10 Monate versichert weiterleasen – dann gehört es Ihnen',
       badge: 'Empfohlen',
       highlighted: true,
       color: colors.weiterleasing,
-      priceLabel: 'Monatliche Rate',
+      priceLabel: 'ABZUG VON IHREM BRUTTO-GEHALT',
       price: '89,90 €',
       priceSuffix: '/ Monat',
-      ablöseLabel: 'Ablöse nach 10 Monaten',
+      ablöseLabel: 'ABLÖSUNG NACH 10 MONATEN',
       ablöseAmount: '0 €',
       mainBenefit: 'Behalten Sie Ihr Fahrrad – nach 10 Monaten gehört es Ihnen ohne Ablöse',
       nettoRate: '~48 €',
@@ -54,14 +54,14 @@ const LLEPopup = () => {
     },
     {
       id: 'anschlussleasing',
-      title: 'Für 24 Monate günstig und versichert weiter leasen',
-      badge: 'Günstigste',
+      title: 'Rad für 24 Monate versichert weiterleasen',
+      badge: null,
       highlighted: false,
       color: colors.anschlussleasing,
-      priceLabel: 'Monatliche Rate',
+      priceLabel: 'ABZUG VON IHREM BRUTTO-GEHALT',
       price: '49,90 €',
       priceSuffix: '/ Monat',
-      ablöseLabel: 'Ablöse nach 24 Monaten',
+      ablöseLabel: 'ABLÖSUNG NACH 24 MONATEN',
       ablöseAmount: '299 €',
       mainBenefit: 'Günstigere Rate – danach flexible Übernahme oder Rückgabe',
       nettoRate: '~27 €',
@@ -74,13 +74,15 @@ const LLEPopup = () => {
     },
     {
       id: 'übernahmekauf',
-      title: 'Direkt mit Einmalzahlung rauskaufen',
+      title: 'Jetzt direkt mit Einmalzahlung herauskaufen',
       badge: null,
       highlighted: false,
       color: colors.übernahmekauf,
       priceLabel: 'Einmalzahlung',
       price: '890 €',
       priceSuffix: 'einmalig',
+      ablöseLabel: 'ABLÖSUNG BEI LAUFZEITENDE',
+      ablöseAmount: '890 €',
       mainBenefit: 'Das Fahrrad gehört Ihnen – sofort und ohne weitere Verpflichtungen',
       nettoRate: null,
       paymentInfo: 'Zahlung auf Rechnung in 14 Tagen',
@@ -117,7 +119,7 @@ const LLEPopup = () => {
     return (
       <>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
           
           .overlay {
             min-height: 100vh;
@@ -126,7 +128,7 @@ const LLEPopup = () => {
             align-items: center;
             justify-content: center;
             padding: 20px;
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           }
           
           .confirmation-modal {
@@ -173,8 +175,8 @@ const LLEPopup = () => {
             padding: 12px 24px;
             font-size: 14px;
             font-weight: 600;
-            color: #2563eb;
-            background: #eff6ff;
+            color: #95C11E;
+            background: #f5f9e8;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -206,7 +208,7 @@ const LLEPopup = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
         
         .overlay {
           min-height: 100vh;
@@ -215,13 +217,13 @@ const LLEPopup = () => {
           align-items: center;
           justify-content: center;
           padding: 20px;
-          font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         .modal {
           background: #ffffff;
           border-radius: 24px;
-          max-width: 1100px;
+          max-width: 1200px;
           width: 100%;
           box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2);
           overflow: hidden;
@@ -238,7 +240,7 @@ const LLEPopup = () => {
         .header-icon {
           width: 56px;
           height: 56px;
-          background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+          background: linear-gradient(135deg, #95C11E 0%, #7a9a18 100%);
           border-radius: 8px;
           display: flex;
           align-items: center;
@@ -269,7 +271,7 @@ const LLEPopup = () => {
         }
         
         .user-id {
-          font-size: 12px;
+          font-size: 16px;
           font-weight: 600;
           color: #6b7280;
           background: #f3f4f6;
@@ -280,7 +282,7 @@ const LLEPopup = () => {
         
         .subtitle {
           margin: 4px 0 0;
-          font-size: 15px;
+          font-size: 16px;
           color: #6b7280;
           font-weight: 400;
         }
@@ -296,23 +298,23 @@ const LLEPopup = () => {
         }
         
         .bike-label {
-          font-size: 13px;
+          font-size: 16px;
           color: #6b7280;
           font-weight: 500;
         }
         
         .bike-name {
-          font-size: 14px;
+          font-size: 16px;
           color: #111827;
           font-weight: 600;
         }
         
         .bike-end {
-          font-size: 13px;
-          color: #dc2626;
+          font-size: 16px;
+          color: #4a4a4a;
           font-weight: 500;
           margin-left: auto;
-          background: #fef2f2;
+          background: #f5f5f5;
           padding: 4px 12px;
           border-radius: 20px;
         }
@@ -379,7 +381,7 @@ const LLEPopup = () => {
         
         .option-title {
           margin: 0 0 16px;
-          font-size: 17px;
+          font-size: 19px;
           font-weight: 700;
           line-height: 1.4;
         }
@@ -406,7 +408,7 @@ const LLEPopup = () => {
         
         .price {
           font-size: 32px;
-          font-weight: 800;
+          font-weight: 700;
           letter-spacing: -0.02em;
         }
         
@@ -423,6 +425,25 @@ const LLEPopup = () => {
           line-height: 1.4;
           margin-top: 8px;
           font-style: italic;
+        }
+        
+        .superscript {
+          font-size: 0.7em;
+          vertical-align: super;
+          line-height: 0;
+        }
+        
+        .footnotes {
+          margin-top: 16px;
+          padding-top: 16px;
+          border-top: 1px solid #e5e7eb;
+          font-size: 11px;
+          color: #6b7280;
+          line-height: 1.6;
+        }
+        
+        .footnote-item {
+          margin-bottom: 8px;
         }
         
         .main-benefit {
@@ -460,6 +481,23 @@ const LLEPopup = () => {
           color: #111827;
           font-weight: 600;
           text-align: right;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        
+        .status-icon {
+          width: 18px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        
+        .status-icon svg {
+          width: 100%;
+          height: 100%;
         }
         
         .return-option {
@@ -580,8 +618,8 @@ const LLEPopup = () => {
           padding: 12px 24px;
           font-size: 14px;
           font-weight: 600;
-          color: #2563eb;
-          background: #eff6ff;
+          color: #95C11E;
+          background: #f5f9e8;
           border: none;
           border-radius: 10px;
           cursor: pointer;
@@ -624,17 +662,19 @@ const LLEPopup = () => {
                 key={option.id}
                 onClick={() => setSelectedOption(option.id)}
                 className="option-card"
-                style={{
-                  borderColor: cardColor.primary,
-                  background: isSelected || option.highlighted 
-                    ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
-                    : '#ffffff',
-                  boxShadow: isSelected 
-                    ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
-                    : option.highlighted 
-                      ? `0 4px 20px ${cardColor.primary}26`
-                      : 'none',
-                }}
+                    style={{
+              borderColor: cardColor.primary,
+              background: isSelected || option.highlighted 
+                ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
+                : (option.id === 'anschlussleasing' || option.id === 'übernahmekauf')
+                  ? '#f5f5f5'
+                  : '#ffffff',
+              boxShadow: isSelected 
+                ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
+                : option.highlighted 
+                  ? `0 4px 20px ${cardColor.primary}26`
+                  : 'none',
+                    }}
               >
                 {/* Badge */}
                 {option.badge && (
@@ -661,21 +701,48 @@ const LLEPopup = () => {
                   {option.title}
                 </h3>
 
-                {/* Price Anchor */}
-                <div className="price-section">
-                  <span className="price-label">{option.priceLabel}</span>
-                  <div className="price-row">
-                    <span className="price" style={{
-                      color: cardColor.dark,
-                    }}>
-                      {option.price}
-                    </span>
-                    <span className="price-suffix">{option.priceSuffix}</span>
+                {/* For Übernahmekauf: show placeholder first */}
+                {option.id === 'übernahmekauf' && (
+                  <div className="price-section" style={{ opacity: 0, pointerEvents: 'none' }}>
+                    <span className="price-label">Placeholder</span>
+                    <div className="price-row">
+                      <span className="price">0 €</span>
+                    </div>
                   </div>
-                </div>
+                )}
 
-                {/* Ablöse Section - only for Weiterleasing and Anschlussleasing */}
-                {(option.ablöseLabel && option.ablöseAmount) && (
+                {/* Price section - for Weiterleasing and Anschlussleasing */}
+                {option.id !== 'übernahmekauf' && (
+                  <div className="price-section">
+                    <span className="price-label">{option.priceLabel}</span>
+                    <div className="price-row">
+                      <span className="price" style={{
+                        color: cardColor.dark,
+                      }}>
+                        {option.price}
+                      </span>
+                      <span className="price-suffix">{option.priceSuffix}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Ablöse section for Weiterleasing and Anschlussleasing */}
+                {(option.ablöseLabel && option.ablöseAmount && option.id !== 'übernahmekauf') && (
+                  <div className="price-section">
+                    <span className="price-label">{option.ablöseLabel}</span>
+                    <div className="price-row">
+                      <span className="price" style={{
+                        color: cardColor.dark,
+                      }}>
+                        {option.ablöseAmount}
+                        {option.id === 'anschlussleasing' && <span className="superscript">¹</span>}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Price section for Übernahmekauf at bottom */}
+                {option.id === 'übernahmekauf' && (
                   <div className="price-section">
                     <span className="price-label">{option.ablöseLabel}</span>
                     <div className="price-row">
@@ -685,83 +752,52 @@ const LLEPopup = () => {
                         {option.ablöseAmount}
                       </span>
                     </div>
-                    {/* Footnote 2 - only for Anschlussleasing */}
-                    {option.id === 'anschlussleasing' && (
-                      <div className="footnote">
-                        2 Am Ende der Leasinglaufzeit beabsichtigt der Bikeleasing-Service, ein Angebot zur Übernahme zu unterbreiten. Aus steuerlichen Gründen können wir hierfür jedoch keine verbindliche Zusage geben.
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Ghost section for Übernahmekauf to maintain alignment */}
-                {!(option.ablöseLabel && option.ablöseAmount) && (
-                  <div className="price-section" style={{ opacity: 0, pointerEvents: 'none' }}>
-                    <span className="price-label">Placeholder</span>
-                    <div className="price-row">
-                      <span className="price">0 €</span>
-                    </div>
                   </div>
                 )}
 
                 {/* Bottom Section - always aligned at bottom */}
-                <div style={{ marginTop: '20px' }}>
+                <div>
                   {/* Divider */}
                   <div className="divider" style={{
                     background: `${cardColor.primary}26`,
                   }} />
 
-                  {/* Netto Rate / Payment Info Section - fixed height for alignment */}
-                  <div style={{ minHeight: '44px', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                    {(option.nettoRate || option.paymentInfo) ? (
-                      <div className="detail-row" style={{
-                        background: `${cardColor.primary}0d`,
-                        margin: '0 -12px 0',
-                        padding: '8px 12px',
-                        borderRadius: '8px',
-                        width: 'calc(100% + 24px)',
-                      }}>
-                        {option.nettoRate ? (
-                          <>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                                <span className="detail-label" style={{
-                                  color: cardColor.dark,
-                                  fontWeight: '600',
-                                }}>Mtl. Netto-Belastung</span>
-                                <span className="detail-value" style={{
-                                  color: cardColor.dark,
-                                  fontWeight: '700',
-                                  fontSize: '15px',
-                                }}>{option.nettoRate}</span>
-                              </div>
-                              {/* Footnote 1 */}
-                              <div className="footnote" style={{ marginTop: '6px', textAlign: 'left' }}>
-                                1 Die angezeigte Netto-Belastung ist ein Beispielwert und bildet nicht Ihre individuelle Situation ab.
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <span className="detail-label" style={{
-                            color: cardColor.dark,
-                            fontWeight: '600',
-                            width: '100%',
-                            textAlign: 'center',
-                          }}>{option.paymentInfo}</span>
-                        )}
-                      </div>
-                    ) : null}
-                  </div>
 
                   {/* Standard Comparison Details - always aligned */}
                   <div className="details">
                     <div className="detail-row">
                       <span className="detail-label">Versicherung</span>
-                      <span className="detail-value">{option.details.versicherung}</span>
+                      <span className="detail-value">
+                        {option.details.versicherung}
+                        {option.details.versicherung === 'Vollkasko inklusive' && (
+                          <span className="status-icon check">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="9" cy="9" r="9" fill="#10b981"/>
+                              <path d="M5 9L8 12L13 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
+                        )}
+                            {option.details.versicherung === 'Endet mit Übernahme' && (
+                          <span className="status-icon cross">
+                            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="9" cy="9" r="9" fill="#dc2626"/>
+                              <path d="M6 6L12 12M12 6L6 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                            </svg>
+                          </span>
+                        )}
+                      </span>
                     </div>
                     <div className="detail-row">
                       <span className="detail-label">Service</span>
-                      <span className="detail-value">{option.details.service}</span>
+                      <span className="detail-value">
+                        {option.details.service}
+                        {option.details.service === 'Reparatur & Wartung inklusive' && (
+                          <span className="status-icon check">✓</span>
+                        )}
+                            {option.details.service === 'Nicht inklusive' && (
+                          <span className="status-icon cross"><span className="icon-content">×</span></span>
+                        )}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -826,6 +862,11 @@ const LLEPopup = () => {
               </svg>
             )}
           </button>
+          <div className="footnotes">
+            <div className="footnote-item">
+              <span className="superscript">¹</span> Am Ende der Leasinglaufzeit beabsichtigt der Bikeleasing-Service, ein Angebot zur Übernahme zu unterbreiten. Aus steuerlichen Gründen können wir hierfür jedoch keine verbindliche Zusage geben.
+            </div>
+          </div>
         </div>
       </div>
     </div>
