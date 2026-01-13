@@ -708,19 +708,8 @@ const LLEPopup = () => {
                   {/* Standard Comparison Details - always aligned */}
                   <div className="details">
                     <div className="detail-row">
-                      <span className="detail-label">Laufzeit</span>
-                      <span className="detail-value">{option.details.laufzeit}</span>
-                    </div>
-                    <div className="detail-row">
                       <span className="detail-label">Versicherung</span>
                       <span className="detail-value">{option.details.versicherung}</span>
-                    </div>
-                    <div className="detail-row">
-                      <span className="detail-label">Ablöse</span>
-                      <span className="detail-value" style={{
-                        color: option.id === 'weiterleasing' ? colors.weiterleasing.primary : '#111827',
-                        fontWeight: option.id === 'weiterleasing' ? '700' : '600',
-                      }}>{option.details.ablöse}</span>
                     </div>
                     <div className="detail-row">
                       <span className="detail-label">Service</span>
