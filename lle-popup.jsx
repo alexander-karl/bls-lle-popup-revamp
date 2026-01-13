@@ -34,7 +34,7 @@ const LLEPopup = () => {
   const options = [
     {
       id: 'weiterleasing',
-      title: 'Weiterleasing',
+      title: 'Aktuelle Rate weiterzahlen – nach 10 Monaten gehört es Ihnen',
       badge: 'Empfohlen',
       highlighted: true,
       color: colors.weiterleasing,
@@ -52,7 +52,7 @@ const LLEPopup = () => {
     },
     {
       id: 'anschlussleasing',
-      title: 'Anschlussleasing',
+      title: 'Für 24 Monate günstig und versichert weiter leasen',
       badge: 'Günstigste',
       highlighted: false,
       color: colors.anschlussleasing,
@@ -70,7 +70,7 @@ const LLEPopup = () => {
     },
     {
       id: 'übernahmekauf',
-      title: 'Übernahmekauf',
+      title: 'Direkt mit Einmalzahlung rauskaufen',
       badge: null,
       highlighted: false,
       color: colors.übernahmekauf,
@@ -375,8 +375,9 @@ const LLEPopup = () => {
         
         .option-title {
           margin: 0 0 16px;
-          font-size: 18px;
+          font-size: 15px;
           font-weight: 700;
+          line-height: 1.4;
         }
         
         .price-section {
@@ -583,7 +584,7 @@ const LLEPopup = () => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="header-top-row">
-              <h1 className="title">Leasinglaufzeitende</h1>
+              <h1 className="title">Ihr Leasingvertrag endet demnächst</h1>
               <span className="user-id">U15419 – TESTNUTZER BIKELEASING</span>
             </div>
             <p className="subtitle">
