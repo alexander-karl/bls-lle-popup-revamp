@@ -416,6 +416,15 @@ const LLEPopup = () => {
           font-weight: 500;
         }
         
+        .footnote {
+          font-size: 11px;
+          color: #6b7280;
+          font-weight: 400;
+          line-height: 1.4;
+          margin-top: 8px;
+          font-style: italic;
+        }
+        
         .main-benefit {
           margin: 0 0 20px;
           font-size: 14px;
@@ -676,6 +685,12 @@ const LLEPopup = () => {
                         {option.ablöseAmount}
                       </span>
                     </div>
+                    {/* Footnote 2 - only for Anschlussleasing */}
+                    {option.id === 'anschlussleasing' && (
+                      <div className="footnote">
+                        2 Am Ende der Leasinglaufzeit beabsichtigt der Bikeleasing-Service, ein Angebot zur Übernahme zu unterbreiten. Aus steuerlichen Gründen können wir hierfür jedoch keine verbindliche Zusage geben.
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -708,15 +723,23 @@ const LLEPopup = () => {
                       }}>
                         {option.nettoRate ? (
                           <>
-                            <span className="detail-label" style={{
-                              color: cardColor.dark,
-                              fontWeight: '600',
-                            }}>Mtl. Netto-Belastung</span>
-                            <span className="detail-value" style={{
-                              color: cardColor.dark,
-                              fontWeight: '700',
-                              fontSize: '15px',
-                            }}>{option.nettoRate}</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                <span className="detail-label" style={{
+                                  color: cardColor.dark,
+                                  fontWeight: '600',
+                                }}>Mtl. Netto-Belastung</span>
+                                <span className="detail-value" style={{
+                                  color: cardColor.dark,
+                                  fontWeight: '700',
+                                  fontSize: '15px',
+                                }}>{option.nettoRate}</span>
+                              </div>
+                              {/* Footnote 1 */}
+                              <div className="footnote" style={{ marginTop: '6px', textAlign: 'left' }}>
+                                1 Die angezeigte Netto-Belastung ist ein Beispielwert und bildet nicht Ihre individuelle Situation ab.
+                              </div>
+                            </div>
                           </>
                         ) : (
                           <span className="detail-label" style={{
