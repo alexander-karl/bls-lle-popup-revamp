@@ -579,7 +579,7 @@ const LLEPopup = () => {
         {/* Header */}
         <div className="header">
           <div className="header-icon">
-            <img src="bls-symbol.jpeg" alt="BLS Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <img src="/bls-symbol.jpeg" alt="BLS Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
           <div style={{ flex: 1 }}>
             <div className="header-top-row">
