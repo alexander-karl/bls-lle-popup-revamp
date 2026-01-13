@@ -375,7 +375,7 @@ const LLEPopup = () => {
         
         .option-title {
           margin: 0 0 16px;
-          font-size: 15px;
+          font-size: 17px;
           font-weight: 700;
           line-height: 1.4;
         }
