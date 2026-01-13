@@ -679,9 +679,6 @@ const LLEPopup = () => {
                   </div>
                 )}
 
-                {/* Main Benefit */}
-                <p className="main-benefit">{option.mainBenefit}</p>
-
                 {/* Bottom Section - always aligned at bottom */}
                 <div style={{ marginTop: 'auto' }}>
                   {/* Divider */}
@@ -775,7 +772,7 @@ const LLEPopup = () => {
         {/* Footer */}
         <div className="footer">
           <p className="footer-note">
-            Sie können Ihre Auswahl später noch ändern. Bei Fragen hilft Ihnen unser Support.
+            Bestätigen Sie Ihre Auswahl einfach per Klick. Bei Fragen hilft Ihnen unser Support.
           </p>
           <button
             className="continue-button"
