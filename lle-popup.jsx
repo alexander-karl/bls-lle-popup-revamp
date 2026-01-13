@@ -41,6 +41,8 @@ const LLEPopup = () => {
       priceLabel: 'Monatliche Rate',
       price: '89,90 €',
       priceSuffix: '/ Monat',
+      ablöseLabel: 'Ablöse nach 10 Monaten',
+      ablöseAmount: '0 €',
       mainBenefit: 'Behalten Sie Ihr Fahrrad – nach 10 Monaten gehört es Ihnen ohne Ablöse',
       nettoRate: '~48 €',
       details: {
@@ -59,6 +61,8 @@ const LLEPopup = () => {
       priceLabel: 'Monatliche Rate',
       price: '49,90 €',
       priceSuffix: '/ Monat',
+      ablöseLabel: 'Ablöse nach 24 Monaten',
+      ablöseAmount: '299 €',
       mainBenefit: 'Günstigere Rate – danach flexible Übernahme oder Rückgabe',
       nettoRate: '~27 €',
       details: {
@@ -660,6 +664,20 @@ const LLEPopup = () => {
                     <span className="price-suffix">{option.priceSuffix}</span>
                   </div>
                 </div>
+
+                {/* Ablöse Section - only for Weiterleasing and Anschlussleasing */}
+                {(option.ablöseLabel && option.ablöseAmount) && (
+                  <div className="price-section">
+                    <span className="price-label">{option.ablöseLabel}</span>
+                    <div className="price-row">
+                      <span className="price" style={{
+                        color: cardColor.dark,
+                      }}>
+                        {option.ablöseAmount}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Main Benefit */}
                 <p className="main-benefit">{option.mainBenefit}</p>
