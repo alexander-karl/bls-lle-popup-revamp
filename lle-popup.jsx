@@ -680,7 +680,7 @@ const LLEPopup = () => {
                 )}
 
                 {/* Bottom Section - always aligned at bottom */}
-                <div style={{ marginTop: 'auto' }}>
+                <div style={{ marginTop: '20px' }}>
                   {/* Divider */}
                   <div className="divider" style={{
                     background: `${cardColor.primary}26`,
