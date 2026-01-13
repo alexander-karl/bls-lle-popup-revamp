@@ -679,6 +679,16 @@ const LLEPopup = () => {
                   </div>
                 )}
 
+                {/* Ghost section for Übernahmekauf to maintain alignment */}
+                {!(option.ablöseLabel && option.ablöseAmount) && (
+                  <div className="price-section" style={{ opacity: 0, pointerEvents: 'none' }}>
+                    <span className="price-label">Placeholder</span>
+                    <div className="price-row">
+                      <span className="price">0 €</span>
+                    </div>
+                  </div>
+                )}
+
                 {/* Bottom Section - always aligned at bottom */}
                 <div style={{ marginTop: '20px' }}>
                   {/* Divider */}
