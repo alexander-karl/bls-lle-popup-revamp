@@ -3,6 +3,23 @@ import React, { useState } from 'react';
 const LLEPopup = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState({});
+
+  // Helper function to calculate netto from brutto (30% tax reduction)
+  const calculateNetto = (bruttoValue) => {
+    // Parse the brutto value (e.g., "117,80 €" -> 117.80)
+    const bruttoStr = bruttoValue.replace(/[^\d,]/g, '').replace(',', '.');
+    const bruttoNum = parseFloat(bruttoStr);
+    
+    if (isNaN(bruttoNum)) return bruttoValue;
+    
+    // Calculate netto: brutto * 0.7 (30% tax reduction)
+    const nettoNum = bruttoNum * 0.7;
+    
+    // Format back to German currency format (e.g., "82,46 €")
+    const formatted = nettoNum.toFixed(2).replace('.', ',');
+    return `${formatted} €`;
+  };
 
   const colors = {
     weiterleasing: {
@@ -38,9 +55,11 @@ const LLEPopup = () => {
       badge: 'Empfohlen',
       highlighted: true,
       color: colors.weiterleasing,
-      priceLabel: 'ABZUG VON IHREM BRUTTO-GEHALT',
-      price: '117,80 €',
+      priceLabel: 'Ihre geschätzte Netto-Belastung',
+      bruttoPrice: '117,80 €',
+      price: calculateNetto('117,80 €'),
       priceSuffix: '/ Monat',
+      showNettoInfo: true,
       ablöseLabel: 'ABLÖSUNG NACH 10 MONATEN',
       ablöseAmount: '0 €',
       mainBenefit: 'Behalten Sie Ihr Fahrrad – nach 10 Monaten gehört es Ihnen ohne Ablöse',
@@ -58,9 +77,11 @@ const LLEPopup = () => {
       badge: null,
       highlighted: false,
       color: colors.anschlussleasing,
-      priceLabel: 'ABZUG VON IHREM BRUTTO-GEHALT',
-      price: '82,46 €',
+      priceLabel: 'Ihre geschätzte Netto-Belastung',
+      bruttoPrice: '34,16 €',
+      price: '23,91 €',
       priceSuffix: '/ Monat',
+      showNettoInfo: true,
       ablöseLabel: 'ABLÖSUNG NACH 24 MONATEN',
       ablöseAmount: '136,80 €',
       mainBenefit: 'Günstigere Rate – danach flexible Übernahme oder Rückgabe',
@@ -81,6 +102,7 @@ const LLEPopup = () => {
       priceLabel: 'Einmalzahlung',
       price: '890 €',
       priceSuffix: 'einmalig',
+      showNettoInfo: false,
       ablöseLabel: 'ABLÖSUNG BEI LAUFZEITENDE',
       ablöseAmount: '684 €',
       mainBenefit: 'Das Fahrrad gehört Ihnen – sofort und ohne weitere Verpflichtungen',
@@ -102,6 +124,14 @@ const LLEPopup = () => {
   const handleBack = () => {
     setShowConfirmation(false);
     setSelectedOption(null);
+  };
+
+  const handleTooltipMouseEnter = (optionId) => {
+    setTooltipVisible(prev => ({ ...prev, [optionId]: true }));
+  };
+
+  const handleTooltipMouseLeave = (optionId) => {
+    setTooltipVisible(prev => ({ ...prev, [optionId]: false }));
   };
 
   const getSelectedColor = () => {
@@ -390,6 +420,13 @@ const LLEPopup = () => {
           margin-bottom: 16px;
         }
         
+        .price-label-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-bottom: 4px;
+        }
+        
         .price-label {
           display: block;
           font-size: 12px;
@@ -397,7 +434,98 @@ const LLEPopup = () => {
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          margin-bottom: 4px;
+        }
+        
+        .info-button {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #6b7280;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 11px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+          position: relative;
+        }
+        
+        .info-button:hover {
+          background: #4a4a4a;
+          transform: scale(1.1);
+        }
+        
+        .tooltip-container {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .tooltip {
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%);
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          padding: 12px 16px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          min-width: 280px;
+          max-width: 320px;
+          z-index: 1000;
+          font-size: 12px;
+          line-height: 1.5;
+          color: #374151;
+          pointer-events: none;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        
+        .tooltip.visible {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+        }
+        
+        .tooltip::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 6px solid transparent;
+          border-top-color: #ffffff;
+        }
+        
+        .tooltip-title {
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: #111827;
+        }
+        
+        .tooltip-content {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        
+        .tooltip-row {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        
+        .tooltip-label {
+          color: #6b7280;
+        }
+        
+        .tooltip-value {
+          font-weight: 600;
+          color: #111827;
         }
         
         .price-row {
@@ -661,6 +789,7 @@ const LLEPopup = () => {
           {options.map((option) => {
             const isSelected = selectedOption === option.id;
             const cardColor = option.color;
+            const showTooltip = tooltipVisible[option.id];
             
             return (
               <div
@@ -719,7 +848,38 @@ const LLEPopup = () => {
                 {/* Price section - for Weiterleasing and Anschlussleasing */}
                 {option.id !== 'übernahmekauf' && (
                 <div className="price-section">
-                  <span className="price-label">{option.priceLabel}</span>
+                  <div className="price-label-wrapper">
+                    <span className="price-label">{option.priceLabel}</span>
+                    {option.showNettoInfo && (
+                      <div 
+                        className="tooltip-container"
+                        onMouseEnter={() => handleTooltipMouseEnter(option.id)}
+                        onMouseLeave={() => handleTooltipMouseLeave(option.id)}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="info-button">i</div>
+                        <div className={`tooltip ${showTooltip ? 'visible' : ''}`}>
+                          <div className="tooltip-title">
+                            Die angezeigte Netto-Belastung ist ein Beispielwert und bildet nicht Ihre individuelle Situation ab. Wir berechnen sie wie folgt:
+                          </div>
+                          <div className="tooltip-content">
+                            <div className="tooltip-row">
+                              <span className="tooltip-label">Abzug von Ihrem Brutto-Gehalt:</span>
+                              <span className="tooltip-value">{option.bruttoPrice}</span>
+                            </div>
+                            <div className="tooltip-row">
+                              <span className="tooltip-label">Geschätzte Lohnsteuer:</span>
+                              <span className="tooltip-value">30 %</span>
+                            </div>
+                            <div className="tooltip-row">
+                              <span className="tooltip-label">Ihre geschätzte Netto-Belastung:</span>
+                              <span className="tooltip-value">{option.price}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <div className="price-row">
                     <span className="price" style={{
                       color: cardColor.dark,
