@@ -47,9 +47,9 @@ const LLEPopup = () => {
       nettoRate: '~48 €',
       details: {
         laufzeit: '10 Monate',
-        versicherung: 'Vollkasko inklusive',
+        versicherung: 'inklusive',
         ablöse: '0 € – Fahrrad gehört nach 10 M. Ihnen',
-        service: 'Reparatur & Wartung inklusive',
+        service: 'inklusive',
       },
     },
     {
@@ -67,9 +67,9 @@ const LLEPopup = () => {
       nettoRate: '~27 €',
       details: {
         laufzeit: '24 Monate',
-        versicherung: 'Vollkasko inklusive',
+        versicherung: 'inklusive',
         ablöse: '299 € (optional)',
-        service: 'Reparatur & Wartung inklusive',
+        service: 'inklusive',
       },
     },
     {
@@ -183,7 +183,7 @@ const LLEPopup = () => {
             transition: all 0.2s ease;
           }
         `}</style>
-        <div className="overlay">
+      <div className="overlay">
         <div className="confirmation-modal">
           <div className="confirmation-icon" style={{
             background: confirmColor.gradient,
@@ -631,8 +631,8 @@ const LLEPopup = () => {
           transition: all 0.2s ease;
         }
       `}</style>
-      <div className="overlay">
-        <div className="modal">
+    <div className="overlay">
+      <div className="modal">
         {/* Header */}
         <div className="header">
           <div className="header-icon">
@@ -667,19 +667,19 @@ const LLEPopup = () => {
                 key={option.id}
                 onClick={() => setSelectedOption(option.id)}
                 className="option-card"
-                    style={{
-              borderColor: cardColor.primary,
-              background: isSelected || option.highlighted 
-                ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
+                style={{
+                  borderColor: cardColor.primary,
+                  background: isSelected || option.highlighted 
+                    ? `linear-gradient(180deg, ${cardColor.light} 0%, #ffffff 100%)`
                 : (option.id === 'anschlussleasing' || option.id === 'übernahmekauf')
                   ? '#f5f5f5'
-                  : '#ffffff',
-              boxShadow: isSelected 
-                ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
-                : option.highlighted 
-                  ? `0 4px 20px ${cardColor.primary}26`
-                  : 'none',
-                    }}
+                    : '#ffffff',
+                  boxShadow: isSelected 
+                    ? `0 0 0 3px ${cardColor.primary}33, 0 4px 20px ${cardColor.primary}26`
+                    : option.highlighted 
+                      ? `0 4px 20px ${cardColor.primary}26`
+                      : 'none',
+                }}
               >
                 {/* Badge */}
                 {option.badge && (
@@ -718,17 +718,17 @@ const LLEPopup = () => {
 
                 {/* Price section - for Weiterleasing and Anschlussleasing */}
                 {option.id !== 'übernahmekauf' && (
-                  <div className="price-section">
-                    <span className="price-label">{option.priceLabel}</span>
-                    <div className="price-row">
-                      <span className="price" style={{
-                        color: cardColor.dark,
-                      }}>
-                        {option.price}
-                      </span>
-                      <span className="price-suffix">{option.priceSuffix}</span>
-                    </div>
+                <div className="price-section">
+                  <span className="price-label">{option.priceLabel}</span>
+                  <div className="price-row">
+                    <span className="price" style={{
+                      color: cardColor.dark,
+                    }}>
+                      {option.price}
+                    </span>
+                    <span className="price-suffix">{option.priceSuffix}</span>
                   </div>
+                </div>
                 )}
 
                 {/* Ablöse section for Weiterleasing and Anschlussleasing */}
@@ -771,10 +771,10 @@ const LLEPopup = () => {
                   {/* Standard Comparison Details - always aligned */}
                   <div className="details">
                     <div className="detail-row">
-                      <span className="detail-label">Versicherung</span>
+                      <span className="detail-label">Vollkasko-Versicherung</span>
                       <span className="detail-value">
                         {option.details.versicherung}
-                        {option.details.versicherung === 'Vollkasko inklusive' && (
+                        {option.details.versicherung === 'inklusive' && (
                           <span className="status-icon check">
                             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                               <circle cx="9" cy="9" r="9" fill="#10b981"/>
@@ -793,10 +793,10 @@ const LLEPopup = () => {
                       </span>
                     </div>
                     <div className="detail-row">
-                      <span className="detail-label">Service</span>
+                      <span className="detail-label">Wartung & Reparatur</span>
                       <span className="detail-value">
                         {option.details.service}
-                        {option.details.service === 'Reparatur & Wartung inklusive' && (
+                        {option.details.service === 'inklusive' && (
                           <span className="status-icon check">
                             <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                               <circle cx="9" cy="9" r="9" fill="#10b981"/>
